@@ -1,8 +1,318 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <title>AK NAGARAJAN</title>
+        <title>PORTFOLIO - AK NAGARAJAN</title>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />  
+
+        <style>
+            /* Reset & Base Styles */
+            * {
+                box-sizing: border-box;
+                scrollbar-width: thin;
+                scrollbar-color: black transparent;
+            }
+            html,body{
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background: #ebebed;
+                font-family: 'Montserrat', sans-serif;
+                height: 100vh;
+                display: flex;
+                overflow: hidden;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            section {
+                min-height: 90vh;
+                padding: 40px;
+                margin-top: 40px ;
+                border-radius: 20px;
+                background: white;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.19);
+            }
+            main {
+                flex: 1;
+                height: 100vh;
+                overflow-y: auto;
+                scroll-behavior: smooth;
+                padding: 20px;
+            }
+
+        </style>
     </head>
     <body>
-        <h1>AK NAGARAJAN PORTFOLIO</h1>
+        <style>
+    nav {
+      background: black;
+      border-radius: 40px;
+      width: 70px;
+      padding: 25px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      
+      /* Keeps the 20px gap on the left, but removes top/bottom margins so it can center perfectly */
+      margin: 0 0 0 20px; 
+      
+      /* This magically centers the nav vertically within the flex body */
+      align-self: center; 
+      
+      height: max-content; 
+    }
+
+    nav a {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      height: 55px;
+      cursor: pointer;
+    }
+
+    nav a .icon-container {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+      transition: 0.3s ease;
+    }
+
+    .material-symbols-outlined {
+      font-size: 22px;
+    }
+
+    nav a:hover .icon-container,
+    nav a.active .icon-container {
+      background: white;
+      color: black;
+    }
+
+    nav a .label {
+      font: 600 8px sans-serif;
+      text-transform: uppercase;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover .label {
+      color: transparent;
+    }
+
+    nav a .label::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 100%;
+      top: 25px;
+      transform: translateY(-50%);
+      background: #000000;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font: 700 10px sans-serif;
+      white-space: nowrap;
+      opacity: 0;
+      transition: 0.3s ease;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    nav a:hover .label::after {
+      opacity: 1;
+      margin-left: 20px;
+    }
+</style>
+
+
+
+  <nav>
+    <a href="#studies" class="nav-link active">
+      <div class="icon-container"><span class="material-symbols-outlined">school</span></div>
+      <span class="label" data-tip="STUDIES">Studies</span>
+    </a>
+    <a href="#skills" class="nav-link">
+      <div class="icon-container"><span class="material-symbols-outlined">psychology</span></div>
+      <span class="label" data-tip="SKILLS">Skills</span>
+    </a>
+    <a href="#interests" class="nav-link">
+      <div class="icon-container"><span class="material-symbols-outlined">favorite</span></div>
+      <span class="label" data-tip="INTERESTS">Interests</span>
+    </a>
+    <a href="#experience" class="nav-link">
+      <div class="icon-container"><span class="material-symbols-outlined">work</span></div>
+      <span class="label" data-tip="EXPERIENCE">Experience</span>
+    </a>
+    <a href="#social" class="nav-link">
+      <div class="icon-container"><span class="material-symbols-outlined">share</span></div>
+      <span class="label" data-tip="SOCIALS">Social</span>
+    </a>
+  </nav>
+        <main>
+                <style>
+
+    /* SPECIFIC FIXES FOR THE STUDIES SECTION */
+    #studies {
+      position: relative;
+      overflow: hidden;
+      padding: 60px 80px; 
+    }
+
+    /* Linear White Gradient overlay fixed to the left side */
+    #studies::before {
+      content: "";
+      position: absolute;
+      inset: 0; /* Shorthand for top:0; right:0; bottom:0; left:0; */
+      background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 1) 0%, 
+        rgba(255, 255, 255, 0.96) 35%, 
+        rgba(255, 255, 255, 0.6) 55%, 
+        transparent 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Container for the text ensuring it sits above the gradient */
+    .studies-content {
+      position: relative;
+      z-index: 2; /* Forces text on top of ::before */
+      max-width: 650px;
+    }
+
+    /* Typography inside Studies */
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: #075dff;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .studies-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(50px, 6vw, 72px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      color: #151b2b;
+    }
+
+    .studies-content h1 span {
+      color: #075dff;
+    }
+
+    .studies-content h2 {
+      font-size: clamp(18px, 2.4vw, 25px);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+      color: #151b2b;
+    }
+
+    .info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      color: #53647e;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .info:hover {
+      color: #075dff;
+    }
+
+    .college {
+      color: #354258;
+      font-size: 16px;
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .studies-content .material-symbols-outlined {
+      font-size: 20px;
+      color: #075dff;
+    }
+
+    /* Pills layout */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 35px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 16px;
+      border: 1px solid #e0eaff;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #0758d9;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 2px 6px rgba(7, 93, 255, 0.08);
+    }
+    .pill:hover{
+      background-color: rgb(173, 165, 165);
+      color: black;
+    }
+    </style>
+    <section id="studies" style="background: url('img/college.jpg') center right / cover no-repeat">
+      <div class="studies-content">
+        <p class="eyebrow">Academic Profile</p>
+        <h1>Education</h1>
+        
+        <h2>B.Tech in Computer Science &amp; Engineering</h2>
+        
+        <a class="info college" href="https://www.yvu.edu.in/" target="_blank" rel="noopener noreferrer">
+            YSR Engineering College of Yogi Vemana University
+        </a>
+        
+        <a class="info" href="https://www.google.com/maps/search/?api=1&query=YSR+Engineering+College+of+Yogi+Vemana+University+Proddatur+Andhra+Pradesh" target="_blank" rel="noopener noreferrer">
+            <span class="material-symbols-outlined">location_on</span>
+            Proddatur, Kadapa, Andhra Pradesh
+        </a>
+        
+        <div class="pills">
+            <div class="pill">
+                <span class="material-symbols-outlined">school</span>
+                3rd Year
+            </div>
+            <div class="pill">
+                <span class="material-symbols-outlined">calendar_month</span>
+                Batch: 2024-2028
+            </div>
+            <div class="pill">
+                <span class="material-symbols-outlined">trending_up</span>
+                CGPA: 7+
+            </div>
+        </div>
+      </div>
+    </section>            <section id="skills">ak</section>        </main>
     </body>
 </html>
