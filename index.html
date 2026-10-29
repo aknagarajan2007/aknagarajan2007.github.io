@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +61,7 @@
         }
 
         /* =========================================
-           SIDEBAR NAVIGATION
+           SIDEBAR NAVIGATION (DESKTOP)
            ========================================= */
         nav {
             background: black;
@@ -76,7 +75,7 @@
             align-self: center;
             height: max-content;
             position: relative;
-            z-index: 100; /* Keeps hover tooltips above section cards */
+            z-index: 100;
         }
 
         nav a {
@@ -98,7 +97,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 4px;
-            transition: 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .material-symbols-outlined {
@@ -475,22 +474,75 @@
         }
 
         /* =========================================
-           RESPONSIVE ADJUSTMENTS
+           RESPONSIVE & DYNAMIC ISLAND NAV
            ========================================= */
         @media (max-width: 768px) {
-            section {
-                padding: 40px 28px;
+            body {
+                display: block;
             }
+            
+            main {
+                padding: 15px 15px 120px 15px; /* Bottom padding for floating nav */
+            }
+            
+            section {
+                padding: 40px 24px;
+            }
+
+            .section-title {
+                font-size: clamp(34px, 8vw, 44px);
+            }
+
+            /* Bottom Floating Dynamic Island Nav */
             nav {
-                margin-left: 10px;
-                width: 58px;
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: row;
+                width: max-content;
+                padding: 10px 15px;
+                margin: 0;
+                background: rgba(15, 15, 15, 0.9);
+                backdrop-filter: blur(12px);
+                border-radius: 50px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+                gap: 10px;
+                z-index: 1000;
+                transition: all 0.3s ease;
+            }
+
+            nav a {
+                height: auto;
+                justify-content: center;
+            }
+
+            nav a .icon-container {
+                width: 44px;
+                height: 44px;
+                margin-bottom: 0;
+                background: transparent;
+                color: #a0a0a0;
+            }
+
+            nav a.active .icon-container {
+                background: white;
+                color: black;
+                width: 65px; /* Stretches horizontally to look like an active island */
+                border-radius: 30px;
+                box-shadow: 0 4px 10px rgba(255,255,255,0.2);
+            }
+
+            nav a .label,
+            nav a .label::after {
+                display: none !important; /* Hide text and tooltips entirely on mobile */
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- SIDEBAR NAVIGATION -->
+    <!-- SIDEBAR / BOTTOM DYNAMIC ISLAND NAVIGATION -->
     <nav>
         <a href="#studies" class="nav-link active">
             <div class="icon-container"><span class="material-symbols-outlined">school</span></div>
@@ -563,42 +615,37 @@
                             <span class="material-symbols-outlined">dns</span>
                             <h3>Backend &amp; Database</h3>
                         </div>
-                        <p>Engineering RESTful APIs, relational schemas, and atomic transaction handlers.</p>
+                        <p>Building secure APIs, routing, and structuring relational databases.</p>
                         <div class="pills">
                             <div class="pill">PHP &amp; PDO</div>
-                            <div class="pill">Node.js</div>
-                            <div class="pill">Express.js</div>
+                            <div class="pill">Node.js &amp; Express</div>
                             <div class="pill">MySQL</div>
-                            <div class="pill">REST APIs</div>
                         </div>
                     </div>
 
                     <div class="feature-card">
                         <div class="card-header">
                             <span class="material-symbols-outlined">code</span>
-                            <h3>Frontend &amp; Web</h3>
+                            <h3>Frontend Development</h3>
                         </div>
-                        <p>Building responsive, clean card-based interfaces and full-stack web applications.</p>
+                        <p>Crafting responsive web interfaces and dynamic single-page applications.</p>
                         <div class="pills">
-                            <div class="pill">React.js</div>
-                            <div class="pill">JavaScript (ES6+)</div>
                             <div class="pill">HTML5</div>
-                            <div class="pill">CSS3</div>
-                            <div class="pill">UI Architecture</div>
+                            <div class="pill">Vanilla CSS</div>
+                            <div class="pill">Vanilla JS</div>
+                            <div class="pill">React.js</div>
                         </div>
                     </div>
 
                     <div class="feature-card">
                         <div class="card-header">
-                            <span class="material-symbols-outlined">memory</span>
-                            <h3>IoT &amp; Dev Workflow</h3>
+                            <span class="material-symbols-outlined">build</span>
+                            <h3>Tools &amp; Environment</h3>
                         </div>
-                        <p>Local server environments, microcontroller automation, and hardware path control.</p>
+                        <p>Setting up local development environments and managing source code.</p>
                         <div class="pills">
-                            <div class="pill">ESP32 / Raspberry Pi</div>
-                            <div class="pill">CNC &amp; G-Code</div>
-                            <div class="pill">Git &amp; GitHub</div>
-                            <div class="pill">XAMPP / Termux</div>
+                            <div class="pill">XAMPP</div>
+                            <div class="pill">GitHub</div>
                         </div>
                     </div>
                 </div>
@@ -612,14 +659,6 @@
                 <h1 class="section-title">Interests</h1>
 
                 <div class="card-grid">
-                    <div class="feature-card">
-                        <div class="card-header">
-                            <span class="material-symbols-outlined">precision_manufacturing</span>
-                            <h3>DIY Hardware &amp; CNC</h3>
-                        </div>
-                        <p>Designing microcontroller automation mechanisms, motor drivers, and G-code plotting machines.</p>
-                    </div>
-
                     <div class="feature-card">
                         <div class="card-header">
                             <span class="material-symbols-outlined">music_note</span>
@@ -664,10 +703,9 @@
                         </div>
                         <p>Developed and deployed a live B2B wholesale e-commerce platform for unstitched textiles with dynamic catalog management and order workflows.</p>
                         <div class="pills">
-                            <div class="pill">PHP</div>
+                            <div class="pill">PHP &amp; PDO</div>
                             <div class="pill">MySQL</div>
-                            <div class="pill">HTML5 &amp; CSS3</div>
-                            <div class="pill">Full-Stack Deployment</div>
+                            <div class="pill">HTML5 &amp; Vanilla CSS</div>
                         </div>
                     </div>
 
@@ -679,28 +717,11 @@
                                 Campus System
                             </span>
                         </div>
-                        <p>Engineered a localized library platform featuring real-time QR scanning, automated book inventory tracking, atomic database transactions, and due balance calculations.</p>
+                        <p>Engineered a localized library platform featuring real-time QR scanning, automated book inventory tracking, database transactions, and due balance calculations.</p>
                         <div class="pills">
                             <div class="pill">React.js</div>
                             <div class="pill">Node.js &amp; Express</div>
                             <div class="pill">MySQL</div>
-                            <div class="pill">REST API</div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-top">
-                            <h3>IoT CNC Pen Plotter</h3>
-                            <span class="project-link">
-                                <span class="material-symbols-outlined" style="font-size: 16px;">memory</span>
-                                Hardware Automation
-                            </span>
-                        </div>
-                        <p>Constructing a 2-axis CNC pen plotter bridging G-code path generation with microcontroller stepper drivers to transcribe digital text onto physical paper.</p>
-                        <div class="pills">
-                            <div class="pill">ESP32 / Raspberry Pi</div>
-                            <div class="pill">G-Code</div>
-                            <div class="pill">Motor Drivers</div>
                         </div>
                     </div>
                 </div>
