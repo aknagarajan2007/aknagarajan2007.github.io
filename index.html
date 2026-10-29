@@ -1,319 +1,777 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>PORTFOLIO - AK NAGARAJAN</title>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PORTFOLIO - AK NAGARAJAN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-        <style>
-            /* Reset & Base Styles */
-            * {
-                box-sizing: border-box;
-                scrollbar-width: thin;
-                scrollbar-color: black transparent;
-            }
-            html,body{
-                margin: 0;
-                padding: 0;
-            }
-            body {
-                background: #ebebed;
-                font-family: 'Montserrat', sans-serif;
-                height: 100vh;
-                display: flex;
-                overflow: hidden;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
+    <style>
+        /* =========================================
+           RESET & BASE LAYOUT
+           ========================================= */
+        * {
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: black transparent;
+        }
 
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #ebebed;
+            font-family: 'Montserrat', sans-serif;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        main {
+            flex: 1;
+            height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding: 20px;
+        }
+
+        section {
+            min-height: 90vh;
+            padding: 60px 80px;
+            margin-top: 40px;
+            border-radius: 20px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.19);
+            position: relative;
+        }
+
+        section:first-of-type {
+            margin-top: 0;
+        }
+
+        /* =========================================
+           SIDEBAR NAVIGATION
+           ========================================= */
+        nav {
+            background: black;
+            border-radius: 40px;
+            width: 70px;
+            padding: 25px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 0 0 0 20px;
+            align-self: center;
+            height: max-content;
+            position: relative;
+            z-index: 100; /* Keeps hover tooltips above section cards */
+        }
+
+        nav a {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            height: 55px;
+            cursor: pointer;
+        }
+
+        nav a .icon-container {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 4px;
+            transition: 0.3s ease;
+        }
+
+        .material-symbols-outlined {
+            font-size: 22px;
+        }
+
+        nav a:hover .icon-container,
+        nav a.active .icon-container {
+            background: white;
+            color: black;
+        }
+
+        nav a .label {
+            font: 600 8px 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            transition: 0.3s ease;
+        }
+
+        nav a:hover .label {
+            color: transparent;
+        }
+
+        nav a .label::after {
+            content: attr(data-tip);
+            position: absolute;
+            left: 100%;
+            top: 25px;
+            transform: translateY(-50%);
+            background: #000000;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font: 700 10px 'Montserrat', sans-serif;
+            white-space: nowrap;
+            opacity: 0;
+            transition: 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        nav a:hover .label::after {
+            opacity: 1;
+            margin-left: 20px;
+        }
+
+        /* =========================================
+           SHARED TYPOGRAPHY & PILLS
+           ========================================= */
+        .section-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 14px 0;
+            color: #075dff;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(44px, 5.5vw, 68px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin: 0 0 30px 0;
+            color: #151b2b;
+        }
+
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 40px;
+            padding: 0 16px;
+            border: 1px solid #e0eaff;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #0758d9;
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 0 2px 6px rgba(7, 93, 255, 0.08);
+            transition: all 0.2s ease;
+        }
+
+        .pill .material-symbols-outlined {
+            font-size: 18px;
+            color: #075dff;
+        }
+
+        .pill:hover {
+            background-color: #eef4ff;
+            border-color: #075dff;
+            color: #075dff;
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
+           1. STUDIES SECTION
+           ========================================= */
+        #studies {
+            overflow: hidden;
+        }
+
+        #studies::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 1) 0%, 
+                rgba(255, 255, 255, 0.96) 35%, 
+                rgba(255, 255, 255, 0.6) 55%, 
+                transparent 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .studies-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+        }
+
+        .studies-content h2 {
+            font-size: clamp(18px, 2.4vw, 25px);
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin: 0 0 20px 0;
+            color: #151b2b;
+        }
+
+        .info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #53647e;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .info:hover {
+            color: #075dff;
+        }
+
+        .college {
+            color: #354258;
+            font-size: 16px;
+            font-weight: 800;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .studies-content .material-symbols-outlined {
+            font-size: 20px;
+            color: #075dff;
+        }
+
+        /* =========================================
+           2. SKILLS & 3. INTERESTS CARDS
+           ========================================= */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 24px;
+            width: 100%;
+        }
+
+        .feature-card {
+            background: #f8faff;
+            border: 1px solid #e0eaff;
+            border-radius: 16px;
+            padding: 28px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(7, 93, 255, 0.08);
+            border-color: #b8d0ff;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-header .material-symbols-outlined {
+            font-size: 26px;
+            color: #075dff;
+            background: #e6f0ff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            color: #151b2b;
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: #53647e;
+            font-size: 14px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .feature-card .pills {
+            margin-top: 18px;
+            gap: 10px;
+        }
+
+        /* =========================================
+           4. EXPERIENCE / PROJECTS SECTION
+           ========================================= */
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #f8faff;
+            border: 1px solid #e0eaff;
+            border-radius: 16px;
+            padding: 28px 32px;
+            transition: all 0.25s ease;
+        }
+
+        .project-card:hover {
+            border-color: #075dff;
+            box-shadow: 0 8px 24px rgba(7, 93, 255, 0.08);
+        }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .project-top h3 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+            color: #151b2b;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #075dff;
+            font-size: 13px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        .project-card p {
+            margin: 0 0 18px 0;
+            color: #53647e;
+            font-size: 14px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .project-card .pills {
+            margin-top: 0;
+            gap: 8px;
+        }
+
+        .project-card .pill {
+            min-height: 32px;
+            padding: 0 12px;
+            font-size: 12px;
+        }
+
+        /* =========================================
+           5. SOCIAL & CONTACT SECTION
+           ========================================= */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .social-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 22px 24px;
+            background: #f8faff;
+            border: 1px solid #e0eaff;
+            border-radius: 16px;
+            text-decoration: none;
+            color: #151b2b;
+            transition: all 0.25s ease;
+        }
+
+        .social-card:hover {
+            background: #075dff;
+            border-color: #075dff;
+            color: #ffffff;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(7, 93, 255, 0.2);
+        }
+
+        .social-card .material-symbols-outlined {
+            font-size: 28px;
+            color: #075dff;
+            background: #e6f0ff;
+            padding: 12px;
+            border-radius: 12px;
+            transition: all 0.25s ease;
+        }
+
+        .social-card:hover .material-symbols-outlined {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .social-meta span {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #53647e;
+            margin-bottom: 4px;
+            transition: color 0.25s ease;
+        }
+
+        .social-card:hover .social-meta span {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .social-meta strong {
+            font-size: 14px;
+            font-weight: 800;
+            word-break: break-all;
+        }
+
+        /* =========================================
+           RESPONSIVE ADJUSTMENTS
+           ========================================= */
+        @media (max-width: 768px) {
             section {
-                min-height: 90vh;
-                padding: 40px;
-                margin-top: 40px ;
-                border-radius: 20px;
-                background: white;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: center;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.19);
+                padding: 40px 28px;
             }
-            main {
-                flex: 1;
-                height: 100vh;
-                overflow-y: auto;
-                scroll-behavior: smooth;
-                padding: 20px;
+            nav {
+                margin-left: 10px;
+                width: 58px;
             }
-
-        </style>
-    </head>
-    <body>
-        <style>
-    nav {
-      background: black;
-      border-radius: 40px;
-      width: 70px;
-      padding: 25px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      
-      /* Keeps the 20px gap on the left, but removes top/bottom margins so it can center perfectly */
-      margin: 0 0 0 20px; 
-      
-      /* This magically centers the nav vertically within the flex body */
-      align-self: center; 
-      
-      height: max-content; 
-    }
-
-    nav a {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: white;
-      height: 55px;
-      cursor: pointer;
-    }
-
-    nav a .icon-container {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 4px;
-      transition: 0.3s ease;
-    }
-
-    .material-symbols-outlined {
-      font-size: 22px;
-    }
-
-    nav a:hover .icon-container,
-    nav a.active .icon-container {
-      background: white;
-      color: black;
-    }
-
-    nav a .label {
-      font: 600 8px sans-serif;
-      text-transform: uppercase;
-      transition: 0.3s ease;
-    }
-
-    nav a:hover .label {
-      color: transparent;
-    }
-
-    nav a .label::after {
-      content: attr(data-tip);
-      position: absolute;
-      left: 100%;
-      top: 25px;
-      transform: translateY(-50%);
-      background: #000000;
-      color: white;
-      padding: 10px 14px;
-      border-radius: 6px;
-      font: 700 10px sans-serif;
-      white-space: nowrap;
-      opacity: 0;
-      transition: 0.3s ease;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    nav a:hover .label::after {
-      opacity: 1;
-      margin-left: 20px;
-    }
-</style>
-
-
-
-  <nav>
-    <a href="#studies" class="nav-link active">
-      <div class="icon-container"><span class="material-symbols-outlined">school</span></div>
-      <span class="label" data-tip="STUDIES">Studies</span>
-    </a>
-    <a href="#skills" class="nav-link">
-      <div class="icon-container"><span class="material-symbols-outlined">psychology</span></div>
-      <span class="label" data-tip="SKILLS">Skills</span>
-    </a>
-    <a href="#interests" class="nav-link">
-      <div class="icon-container"><span class="material-symbols-outlined">favorite</span></div>
-      <span class="label" data-tip="INTERESTS">Interests</span>
-    </a>
-    <a href="#experience" class="nav-link">
-      <div class="icon-container"><span class="material-symbols-outlined">work</span></div>
-      <span class="label" data-tip="EXPERIENCE">Experience</span>
-    </a>
-    <a href="#social" class="nav-link">
-      <div class="icon-container"><span class="material-symbols-outlined">share</span></div>
-      <span class="label" data-tip="SOCIALS">Social</span>
-    </a>
-  </nav>
-        <main>
-                <style>
-
-    /* SPECIFIC FIXES FOR THE STUDIES SECTION */
-    #studies {
-      position: relative;
-      overflow: hidden;
-      padding: 60px 80px; 
-    }
-
-    /* Linear White Gradient overlay fixed to the left side */
-    #studies::before {
-      content: "";
-      position: absolute;
-      inset: 0; /* Shorthand for top:0; right:0; bottom:0; left:0; */
-      background: linear-gradient(90deg, 
-        rgba(255, 255, 255, 1) 0%, 
-        rgba(255, 255, 255, 0.96) 35%, 
-        rgba(255, 255, 255, 0.6) 55%, 
-        transparent 100%);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* Container for the text ensuring it sits above the gradient */
-    .studies-content {
-      position: relative;
-      z-index: 2; /* Forces text on top of ::before */
-      max-width: 650px;
-    }
-
-    /* Typography inside Studies */
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-      color: #075dff;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    .studies-content h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(50px, 6vw, 72px);
-      font-weight: 900;
-      letter-spacing: -2px;
-      line-height: 1.05;
-      margin-bottom: 20px;
-      color: #151b2b;
-    }
-
-    .studies-content h1 span {
-      color: #075dff;
-    }
-
-    .studies-content h2 {
-      font-size: clamp(18px, 2.4vw, 25px);
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      margin-bottom: 20px;
-      color: #151b2b;
-    }
-
-    .info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 15px;
-      color: #53647e;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .info:hover {
-      color: #075dff;
-    }
-
-    .college {
-      color: #354258;
-      font-size: 16px;
-      font-weight: 800;
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-
-    .studies-content .material-symbols-outlined {
-      font-size: 20px;
-      color: #075dff;
-    }
-
-    /* Pills layout */
-    .pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 35px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 40px;
-      padding: 0 16px;
-      border: 1px solid #e0eaff;
-      border-radius: 8px;
-      background: #ffffff;
-      color: #0758d9;
-      font-size: 13px;
-      font-weight: 800;
-      box-shadow: 0 2px 6px rgba(7, 93, 255, 0.08);
-    }
-    .pill:hover{
-      background-color: rgb(173, 165, 165);
-      color: black;
-    }
+        }
     </style>
-    <section id="studies" style="background: url('img/college.jpg') center right / cover no-repeat">
-      <div class="studies-content">
-        <p class="eyebrow">Academic Profile</p>
-        <h1>Education</h1>
-        
-        <h2>B.Tech in Computer Science &amp; Engineering</h2>
-        
-        <a class="info college" href="https://www.yvu.edu.in/" target="_blank" rel="noopener noreferrer">
-            YSR Engineering College of Yogi Vemana University
-        </a>
-        
-        <a class="info" href="https://www.google.com/maps/search/?api=1&query=QH54+MV9" target="_blank" rel="noopener noreferrer">
-    <span class="material-symbols-outlined">location_on</span>
-    Proddatur, YSR District, Andhra Pradesh
-</a>
+</head>
+<body>
 
-        
-        <div class="pills">
-            <div class="pill">
-                <span class="material-symbols-outlined">school</span>
-                3rd Year
+    <!-- SIDEBAR NAVIGATION -->
+    <nav>
+        <a href="#studies" class="nav-link active">
+            <div class="icon-container"><span class="material-symbols-outlined">school</span></div>
+            <span class="label" data-tip="STUDIES">Studies</span>
+        </a>
+        <a href="#skills" class="nav-link">
+            <div class="icon-container"><span class="material-symbols-outlined">psychology</span></div>
+            <span class="label" data-tip="SKILLS">Skills</span>
+        </a>
+        <a href="#interests" class="nav-link">
+            <div class="icon-container"><span class="material-symbols-outlined">favorite</span></div>
+            <span class="label" data-tip="INTERESTS">Interests</span>
+        </a>
+        <a href="#experience" class="nav-link">
+            <div class="icon-container"><span class="material-symbols-outlined">work</span></div>
+            <span class="label" data-tip="EXPERIENCE">Experience</span>
+        </a>
+        <a href="#social" class="nav-link">
+            <div class="icon-container"><span class="material-symbols-outlined">share</span></div>
+            <span class="label" data-tip="SOCIALS">Social</span>
+        </a>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main>
+
+        <!-- 1. STUDIES -->
+        <section id="studies" style="background: url('img/college.jpg') center right / cover no-repeat">
+            <div class="studies-content">
+                <p class="eyebrow">Academic Profile</p>
+                <h1 class="section-title">Education</h1>
+
+                <h2>B.Tech in Computer Science &amp; Engineering</h2>
+
+                <a class="info college" href="https://www.yvu.edu.in/" target="_blank" rel="noopener noreferrer">
+                    YSR Engineering College of Yogi Vemana University
+                </a>
+
+                <a class="info" href="https://www.google.com/maps/search/?api=1&query=QH54+MV9" target="_blank" rel="noopener noreferrer">
+                    <span class="material-symbols-outlined">location_on</span>
+                    Proddatur, YSR District, Andhra Pradesh
+                </a>
+
+                <div class="pills">
+                    <div class="pill">
+                        <span class="material-symbols-outlined">school</span>
+                        3rd Year
+                    </div>
+                    <div class="pill">
+                        <span class="material-symbols-outlined">calendar_month</span>
+                        Batch: 2024-2028
+                    </div>
+                    <div class="pill">
+                        <span class="material-symbols-outlined">trending_up</span>
+                        CGPA: 7+
+                    </div>
+                </div>
             </div>
-            <div class="pill">
-                <span class="material-symbols-outlined">calendar_month</span>
-                Batch: 2024-2028
+        </section>
+
+        <!-- 2. SKILLS -->
+        <section id="skills">
+            <div class="section-wrapper">
+                <p class="eyebrow">Technical Arsenal</p>
+                <h1 class="section-title">Skills &amp; Stack</h1>
+
+                <div class="card-grid">
+                    <div class="feature-card">
+                        <div class="card-header">
+                            <span class="material-symbols-outlined">dns</span>
+                            <h3>Backend &amp; Database</h3>
+                        </div>
+                        <p>Engineering RESTful APIs, relational schemas, and atomic transaction handlers.</p>
+                        <div class="pills">
+                            <div class="pill">PHP &amp; PDO</div>
+                            <div class="pill">Node.js</div>
+                            <div class="pill">Express.js</div>
+                            <div class="pill">MySQL</div>
+                            <div class="pill">REST APIs</div>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-header">
+                            <span class="material-symbols-outlined">code</span>
+                            <h3>Frontend &amp; Web</h3>
+                        </div>
+                        <p>Building responsive, clean card-based interfaces and full-stack web applications.</p>
+                        <div class="pills">
+                            <div class="pill">React.js</div>
+                            <div class="pill">JavaScript (ES6+)</div>
+                            <div class="pill">HTML5</div>
+                            <div class="pill">CSS3</div>
+                            <div class="pill">UI Architecture</div>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-header">
+                            <span class="material-symbols-outlined">memory</span>
+                            <h3>IoT &amp; Dev Workflow</h3>
+                        </div>
+                        <p>Local server environments, microcontroller automation, and hardware path control.</p>
+                        <div class="pills">
+                            <div class="pill">ESP32 / Raspberry Pi</div>
+                            <div class="pill">CNC &amp; G-Code</div>
+                            <div class="pill">Git &amp; GitHub</div>
+                            <div class="pill">XAMPP / Termux</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="pill">
-                <span class="material-symbols-outlined">trending_up</span>
-                CGPA: 7+
+        </section>
+
+        <!-- 3. INTERESTS -->
+        <section id="interests">
+            <div class="section-wrapper">
+                <p class="eyebrow">Beyond the Screen</p>
+                <h1 class="section-title">Interests</h1>
+
+                <div class="card-grid">
+                    <div class="feature-card">
+                        <div class="card-header">
+                            <span class="material-symbols-outlined">precision_manufacturing</span>
+                            <h3>DIY Hardware &amp; CNC</h3>
+                        </div>
+                        <p>Designing microcontroller automation mechanisms, motor drivers, and G-code plotting machines.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-header">
+                            <span class="material-symbols-outlined">music_note</span>
+                            <h3>Dance Training</h3>
+                        </div>
+                        <p>Practising choreography, rhythm control, and expressive movement through regular training.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-header">
+                            <span class="material-symbols-outlined">edit_note</span>
+                            <h3>Tamil Poetry</h3>
+                        </div>
+                        <p>Reading, composing, and refining Tamil verse with a focus on rhythm and classical expression.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-header">
+                            <span class="material-symbols-outlined">directions_car</span>
+                            <h3>Automotive Aesthetics</h3>
+                        </div>
+                        <p>Exploring high-contrast automobile design, dark UI themes, and minimalist visual composition.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-      </div>
-    </section>            <section id="skills">ak</section>        </main>
-    </body>
+        </section>
+
+        <!-- 4. EXPERIENCE & PROJECTS -->
+        <section id="experience">
+            <div class="section-wrapper">
+                <p class="eyebrow">Featured Work</p>
+                <h1 class="section-title">Experience &amp; Projects</h1>
+
+                <div class="project-list">
+                    <div class="project-card">
+                        <div class="project-top">
+                            <h3>AK Fabrics — B2B Wholesale Platform</h3>
+                            <a class="project-link" href="https://akfabrics.gt.tc" target="_blank" rel="noopener noreferrer">
+                                akfabrics.gt.tc
+                                <span class="material-symbols-outlined" style="font-size: 16px;">open_in_new</span>
+                            </a>
+                        </div>
+                        <p>Developed and deployed a live B2B wholesale e-commerce platform for unstitched textiles with dynamic catalog management and order workflows.</p>
+                        <div class="pills">
+                            <div class="pill">PHP</div>
+                            <div class="pill">MySQL</div>
+                            <div class="pill">HTML5 &amp; CSS3</div>
+                            <div class="pill">Full-Stack Deployment</div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-top">
+                            <h3>Smart Library Management System (YSREC)</h3>
+                            <span class="project-link">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">qr_code_scanner</span>
+                                Campus System
+                            </span>
+                        </div>
+                        <p>Engineered a localized library platform featuring real-time QR scanning, automated book inventory tracking, atomic database transactions, and due balance calculations.</p>
+                        <div class="pills">
+                            <div class="pill">React.js</div>
+                            <div class="pill">Node.js &amp; Express</div>
+                            <div class="pill">MySQL</div>
+                            <div class="pill">REST API</div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-top">
+                            <h3>IoT CNC Pen Plotter</h3>
+                            <span class="project-link">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">memory</span>
+                                Hardware Automation
+                            </span>
+                        </div>
+                        <p>Constructing a 2-axis CNC pen plotter bridging G-code path generation with microcontroller stepper drivers to transcribe digital text onto physical paper.</p>
+                        <div class="pills">
+                            <div class="pill">ESP32 / Raspberry Pi</div>
+                            <div class="pill">G-Code</div>
+                            <div class="pill">Motor Drivers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SOCIAL & CONTACT -->
+        <section id="social">
+            <div class="section-wrapper">
+                <p class="eyebrow">Get In Touch</p>
+                <h1 class="section-title">Connect</h1>
+
+                <div class="social-grid">
+                    <a class="social-card" href="mailto:nagarajan.ak786@gmail.com">
+                        <span class="material-symbols-outlined">mail</span>
+                        <div class="social-meta">
+                            <span>Email</span>
+                            <strong>nagarajan.ak786@gmail.com</strong>
+                        </div>
+                    </a>
+
+                    <a class="social-card" href="https://github.com/aknagaraj9620-cloud" target="_blank" rel="noopener noreferrer">
+                        <span class="material-symbols-outlined">terminal</span>
+                        <div class="social-meta">
+                            <span>GitHub</span>
+                            <strong>@aknagaraj9620-cloud</strong>
+                        </div>
+                    </a>
+
+                    <a class="social-card" href="tel:+919344082260">
+                        <span class="material-symbols-outlined">call</span>
+                        <div class="social-meta">
+                            <span>Phone</span>
+                            <strong>+91 9344082260</strong>
+                        </div>
+                    </a>
+
+                    <div class="social-card">
+                        <span class="material-symbols-outlined">my_location</span>
+                        <div class="social-meta">
+                            <span>Base Location</span>
+                            <strong>Nagari, Andhra Pradesh</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SCROLL-SPY NAVIGATION SCRIPT -->
+    <script>
+        const mainContainer = document.querySelector('main');
+        const sections = document.querySelectorAll('main section');
+        const navLinks = document.querySelectorAll('nav .nav-link');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                    });
+                }
+            });
+        }, {
+            root: mainContainer,
+            threshold: 0.5
+        });
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+
+</body>
 </html>
